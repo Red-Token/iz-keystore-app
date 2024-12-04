@@ -6,7 +6,7 @@ import {now} from "@welshman/lib";
 
 import {Nip46PeerPublisher} from "./Nip46PeerPublisher";
 import {decodeNSec} from "./util";
-import EventEmitter from "node:events";
+import EventEmitter from 'events';
 
 export enum PeerHandlerEventType {
     MESSAGE = 'message'

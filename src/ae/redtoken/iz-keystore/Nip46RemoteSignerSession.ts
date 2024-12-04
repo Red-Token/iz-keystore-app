@@ -3,7 +3,6 @@ import {Nip04Peer} from "./Nip04Peer";
 import {Nip46PeerPublisher} from "./Nip46PeerPublisher";
 import {ISigner, Nip01Signer} from "@welshman/signer";
 import {signer} from "@welshman/app";
-import type = Mocha.utils.type;
 
 type requestHandler = (request: Nip46Request, publisher: Nip46PeerPublisher, event: TrackEvent) => any
 

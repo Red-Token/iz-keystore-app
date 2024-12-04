@@ -1,20 +1,26 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+
  *
  * @format
  */
+
+import './src/local-storage.ts';
+import 'react-native-url-polyfill/auto';
+
 import 'fast-text-encoding';
 import 'react-native-get-random-values';
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-    Button,
+    Alert,
+    Button, Image,
     SafeAreaView,
     ScrollView,
     StatusBar,
     StyleSheet,
-    Text,
+    Text, TextInput,
     useColorScheme,
     View,
 } from 'react-native';
@@ -23,6 +29,9 @@ import {
     generateSecretKey,
     getPublicKey,
 } from 'nostr-tools/pure';
+
+
+import {TestClass} from './src/TestClass.ts';
 
 // import {
 //   Colors,
@@ -67,15 +76,36 @@ function App(): React.JSX.Element {
 
     const backgroundStyle = {
         // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+        backgroundColor: '#020202',
     };
 
+    // function setText() {
+    //     console.log(text);
+    // }
+
     function myFunc(xz: Number) {
+        // const ncurl = 'nostrconnect://7758c3c1cbd3b7ff47c1c483cbbf41d0afac3efebb611edb32fedb135b90e513?secret=csef85&url=http%3A%2F%2Flocalhost%3A1847&name=IZ+Collaborator&image=http%3A%2F%2Flocalhost%3A1847%2Fpwa-192x192.png&perms=sign_event%3A22242%2Cnip04_encrypt%2Cnip04_decrypt%2Cnip44_encrypt%2Cnip44_decrypt&relay=wss%3A%2F%2Frelay.lxc%2F';
+
+        console.log('xxxxxxsssss' + text);
+
         console.log('Hello' + xz);
+        const tc = new TestClass('xxxxx');
+        tc.xxxxeee(text);
+        console.log(tc.name);
 
         let sk = generateSecretKey(); // `sk` is a Uint8Array
         let pk = getPublicKey(sk); // `pk` is a hex string
         console.log(pk);
     }
+
+    // let text = 'Hello';
+    const [text, setText] = useState<string>('');
+
+    // const onSuccess = (e: any) => {
+    //     Alert.alert("QR Code Scanned", e.data, [
+    //         { text: "OK", onPress: () => console.log("Scanned data:", e.data) },
+    //     ]);
+    // };
 
     return (
         <SafeAreaView style={backgroundStyle}>
@@ -87,28 +117,24 @@ function App(): React.JSX.Element {
                 contentInsetAdjustmentBehavior="automatic"
                 style={backgroundStyle}>
                 {/*<Header />*/}
-                <View
-                    style={{
-                        // backgroundColor: isDarkMode ? Colors.black : Colors.white,
-                    }}>
-                    <Section title="Step One">
-                        Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                        screen and then come back to see your edits.
-                    </Section>
-                    <Section title="See Your Changes">
-                        {/*<ReloadInstructions />*/}
-                    </Section>
-                    <Section title="Debug">
-                        {/*<DebugInstructions />*/}
-                    </Section>
-                    <Section title="Learn More">
-                        Read the docs to discover what to do next:
+                <View style={styles.container}>
 
-                        <Button title={'myButton'} onPress={() => {
-                            myFunc(190);
-                        }}/>
+                    <Image style={styles.logo} resizeMode="contain"
+                           source={require('./assets/logo-only-1000.png')}/>
+
+                    <Section title="Login">
+                        Enter the nostrconnect link below:
                     </Section>
-                    {/*<LearnMoreLinks />*/}
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Type here"
+                        value={text}
+                        onChangeText={setText}/>
+
+                    <Button title={'Login'} onPress={() => {
+                        myFunc(190);
+                    }}/>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -116,21 +142,54 @@ function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+    logo: {
+        flex: 1,
+        justifyContent: 'center',
+        width: 200,
+        height: 200,
+    },
     sectionContainer: {
         marginTop: 32,
         paddingHorizontal: 24,
     },
     sectionTitle: {
+        color: '#ffffff',
         fontSize: 24,
         fontWeight: '600',
     },
     sectionDescription: {
+        color: '#ffffff',
         marginTop: 8,
         fontSize: 18,
         fontWeight: '400',
     },
     highlight: {
         fontWeight: '700',
+    },
+    input: {
+        height: 40,
+        width: '100%',
+        borderColor: '#4e5',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginBottom: 20,
+        backgroundColor: '#0f0f0f',
+        color: '#ffffff',
+    }, container: {
+        backgroundColor: '#0f0f0f',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    centerText: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+        color: '#007AFF',
+        textAlign: 'center',
     },
 });
 
